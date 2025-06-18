@@ -19,6 +19,7 @@ pub mod gradient;
 pub mod image;
 pub mod input_method;
 pub mod keyboard;
+pub mod layer_shell;
 pub mod layout;
 pub mod mouse;
 pub mod overlay;

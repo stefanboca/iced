@@ -36,6 +36,9 @@ pub enum Event {
 pub enum PlatformSpecific {
     /// A MacOS specific event
     MacOS(MacOS),
+
+    /// A Wayland specific event
+    Wayland(Wayland),
 }
 
 /// Describes an event specific to MacOS
@@ -47,6 +50,16 @@ pub enum MacOS {
     ///
     /// [bundled]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html#//apple_ref/doc/uid/10000123i-CH101-SW19
     ReceivedUrl(String),
+}
+
+/// Describes an event specific to Wayland
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Wayland {
+    /// Output Added
+    OutputAdded(String),
+
+    /// Output Removed
+    OutputRemoved(String),
 }
 
 /// A stream of runtime events.

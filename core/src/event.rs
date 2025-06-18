@@ -1,6 +1,7 @@
 //! Handle events of a user interface.
 use crate::input_method;
 use crate::keyboard;
+use crate::layer_shell;
 use crate::mouse;
 use crate::touch;
 use crate::window;
@@ -21,6 +22,9 @@ pub enum Event {
 
     /// A window event
     Window(window::Event),
+
+    /// A layer event
+    Layer(layer_shell::Event),
 
     /// A touch event
     Touch(touch::Event),

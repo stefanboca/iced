@@ -33,15 +33,15 @@ use crate::{Pixels, Size};
 /// let widget = Widget::new().padding([10, 20]);        // top/bottom, left/right
 /// ```
 #[derive(Debug, Copy, Clone, PartialEq, Default)]
-pub struct Padding {
+pub struct Padding<T = f32> {
     /// Top padding
-    pub top: f32,
+    pub top: T,
     /// Right padding
-    pub right: f32,
+    pub right: T,
     /// Bottom padding
-    pub bottom: f32,
+    pub bottom: T,
     /// Left padding
-    pub left: f32,
+    pub left: T,
 }
 
 /// Create a [`Padding`] that is equal on all sides.
@@ -77,16 +77,6 @@ impl Padding {
         bottom: 0.0,
         left: 0.0,
     };
-
-    /// Create a [`Padding`] that is equal on all sides.
-    pub const fn new(padding: f32) -> Padding {
-        Padding {
-            top: padding,
-            right: padding,
-            bottom: padding,
-            left: padding,
-        }
-    }
 
     /// Sets the [`top`] of the [`Padding`].
     ///
@@ -149,6 +139,21 @@ impl Padding {
             bottom: self.bottom.min(available.height - new_top),
             left: new_left,
             right: self.right.min(available.width - new_left),
+        }
+    }
+}
+
+impl<T> Padding<T>
+where
+    T: Copy,
+{
+    /// Create a [`Padding`] that is equal on all sides.
+    pub const fn new(padding: T) -> Padding<T> {
+        Padding {
+            top: padding,
+            right: padding,
+            bottom: padding,
+            left: padding,
         }
     }
 }

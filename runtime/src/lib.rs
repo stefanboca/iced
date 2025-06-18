@@ -12,6 +12,7 @@
 pub mod clipboard;
 pub mod font;
 pub mod keyboard;
+pub mod layer_shell;
 pub mod overlay;
 pub mod system;
 pub mod task;
@@ -53,6 +54,9 @@ pub enum Action<T> {
     /// Run a window action.
     Window(window::Action),
 
+    /// Run a layer shell action.
+    LayerShell(layer_shell::Action),
+
     /// Run a system action.
     System(system::Action),
 
@@ -81,6 +85,7 @@ impl<T> Action<T> {
             Action::Widget(operation) => Err(Action::Widget(operation)),
             Action::Clipboard(action) => Err(Action::Clipboard(action)),
             Action::Window(action) => Err(Action::Window(action)),
+            Action::LayerShell(action) => Err(Action::LayerShell(action)),
             Action::System(action) => Err(Action::System(action)),
             Action::Reload => Err(Action::Reload),
             Action::Exit => Err(Action::Exit),
@@ -105,6 +110,7 @@ where
                 write!(f, "Action::Clipboard({action:?})")
             }
             Action::Window(_) => write!(f, "Action::Window"),
+            Action::LayerShell(_) => write!(f, "Action::LayerShell"),
             Action::System(action) => write!(f, "Action::System({action:?})"),
             Action::Reload => write!(f, "Action::Reload"),
             Action::Exit => write!(f, "Action::Exit"),

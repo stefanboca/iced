@@ -1,7 +1,8 @@
 //! Listen to runtime events.
 use crate::MaybeSend;
+
 use crate::core::event::{self, Event};
-use crate::core::window;
+use crate::core::{layer_shell, window};
 use crate::subscription::{self, Subscription};
 
 /// Returns a [`Subscription`] to all the ignored runtime events.
@@ -34,7 +35,9 @@ where
 
     subscription::filter_map((EventsWith, f), move |event| match event {
         subscription::Event::Interaction {
-            event: Event::Window(window::Event::RedrawRequested(_)),
+            event:
+                Event::Window(window::Event::RedrawRequested(_))
+                | Event::Layer(layer_shell::Event::RedrawRequested(_)),
             ..
         }
         | subscription::Event::PlatformSpecific(_) => None,
@@ -86,6 +89,19 @@ pub fn listen_url() -> Subscription<String> {
                 subscription::MacOS::ReceivedUrl(url),
             ),
         ) => Some(url),
+        _ => None,
+    })
+}
+
+/// Creates a [`Subscription`] that notifies of monitor events received from the system.
+pub fn listen_wayland() -> Subscription<subscription::Wayland> {
+    #[derive(Hash)]
+    struct ListenUrl;
+
+    subscription::filter_map(ListenUrl, move |event| match event {
+        subscription::Event::PlatformSpecific(
+            subscription::PlatformSpecific::Wayland(event),
+        ) => Some(event),
         _ => None,
     })
 }
