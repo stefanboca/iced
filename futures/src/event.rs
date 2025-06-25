@@ -35,9 +35,7 @@ where
 
     subscription::filter_map((EventsWith, f), move |event| match event {
         subscription::Event::Interaction {
-            event:
-                Event::Window(window::Event::RedrawRequested(_))
-                | Event::Layer(layer_shell::Event::RedrawRequested(_)),
+            event: Event::Window(window::Event::RedrawRequested(_)),
             ..
         }
         | subscription::Event::PlatformSpecific(_) => None,
