@@ -52,7 +52,7 @@ use crate::futures::futures::task;
 use crate::futures::futures::{Future, StreamExt};
 use crate::futures::subscription;
 use crate::futures::{Executor, Runtime};
-use crate::graphics::{Compositor, compositor};
+use crate::graphics::{compositor, Compositor};
 use crate::runtime::user_interface::{self, UserInterface};
 use crate::runtime::{Action, Task};
 
@@ -1473,6 +1473,9 @@ fn run_action<'a, P, C>(
             control_sender
                 .start_send(Control::Exit)
                 .expect("Send control action");
+        }
+        Action::LayerShell(_) => {
+            log::warn!("winit does not support layer_shell");
         }
     }
 }
