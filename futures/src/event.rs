@@ -2,7 +2,7 @@
 use crate::MaybeSend;
 
 use crate::core::event::{self, Event};
-use crate::core::{layer_shell, window};
+use crate::core::window;
 use crate::subscription::{self, Subscription};
 
 /// Returns a [`Subscription`] to all the ignored runtime events.

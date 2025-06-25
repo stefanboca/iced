@@ -8,16 +8,4 @@ pub enum Event {
         /// The created size of the layer window.
         size: Size,
     },
-
-    /// A layer was closed.
-    Closed,
-
-    /// A Layer was resized.
-    Resized(Size),
-
-    /// A layer was focused.
-    Focused,
-
-    /// A layer was unfocused.
-    Unfocused,
 }
